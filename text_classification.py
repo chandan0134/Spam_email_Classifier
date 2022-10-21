@@ -26,10 +26,8 @@ lm=WordNetLemmatizer()
 sw=stopwords.words('english')
 print(sw)
 
-from google.colab import drive
-drive.mount('/content/drive')
 
-df=pd.read_csv('/content/drive/MyDrive/NLP/spam.csv', encoding="ISO-8859-1")
+df=pd.read_csv('spam.csv', encoding="ISO-8859-1")
 df.head()
 
 df.rename(columns = {'v1':'category'}, inplace = True)
@@ -45,7 +43,7 @@ df.head()
 df1=df.drop(['Unnamed: 2','Unnamed: 3','Unnamed: 4'], axis=1)
 df1.head()
 
-df1['categoty'].value_counts()
+df1['category'].value_counts()
 
 #preprocessing steps
 #1)conversio to lower case
@@ -77,7 +75,7 @@ print(sm.shape)
 print(cv.get_feature_names())
 
 x=sm
-y=df['categoty']
+y=df['category']
 print(type(x))
 print(type(y))
 
@@ -102,3 +100,13 @@ cm_m1=confusion_matrix(y_test,ypred_m1)
 print(cm_m1)
 print(classification_report(y_test,ypred_m1))
 
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfidf= TfidfVectorizer(use_idf=True, smooth_idf=True, sublinear_tf=False)
+
+from sklearn.naive_bayes import MultinomialNB
+mnb=MultinomialNB(alpha = 1.0, fit_prior = True, class_prior =None)
+
+import pickle
+pickle.dump(tfidf,open('vectorize.pkl','wb'))
+pickle.dump(mnb,open('model.pkl','wb'))
