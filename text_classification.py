@@ -100,7 +100,7 @@ cm_m1=confusion_matrix(y_test,ypred_m1)
 print(cm_m1)
 print(classification_report(y_test,ypred_m1))
 
-from sklearn.feature_extraction.text import TfidfTransformer
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf= TfidfVectorizer(use_idf=True, smooth_idf=True, sublinear_tf=False)
 

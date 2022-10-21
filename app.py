@@ -1,50 +1,61 @@
-
 import streamlit as st
 import pickle
 import string
-import pandas as pd
 from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer
-import re
-from nltk import word_tokenize
 
-from nltk.corpus import stopwords
-from torchvision import transforms
+ps = PorterStemmer()
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfidf= TfidfVectorizer( norm='l2', use_idf=True, smooth_idf=True, sublinear_tf=False)
+
+from sklearn.naive_bayes import MultinomialNB
+mnb=MultinomialNB(alpha = 1.0, fit_prior = True, class_prior =None)
 
 
-df=pd.read_csv('spam.csv', encoding="ISO-8859-1")
-df.rename(columns = {'v2':'Message'}, inplace = True)
-lm=WordNetLemmatizer()
-sw=stopwords.words('english')
 def transform_text(text):
-    corpus=[]
-    for i in df['Message']:
-      t=i.lower()                           
-      t=re.sub('[^A-Za-z0-9]',' ',t)        
-      t=word_tokenize(t)                    
-      t=[x for x in t if x not in sw]       
-      t=[lm.lemmatize(x) for x in t]        
-      t=" ".join(t)                         
-      corpus.append(t)
-    
+    text = text.lower()
+    text = nltk.word_tokenize(text)
 
+    y = []
+    for i in text:
+        if i.isalnum():
+            y.append(i)
 
-tfidf= pickle.load(open('vectorize.pkl','rb'))
-model= pickle.load(open('model.pkl','rb'))
+    text = y[:]
+    y.clear()
 
-st.title("Email/SMS spam classifier")
+    for i in text:
+        if i not in stopwords.words('english') and i not in string.punctuation:
+            y.append(i)
 
-input_sms= st.text_input("enter a message")
+    text = y[:]
+    y.clear()
 
-transformed_sms=transform_text(input_sms)
-vector_input=tfidf.transform([transformed_sms])
+    for i in text:
+        y.append(ps.stem(i))
 
-result=model.predict(vector_input)[0]
+    return " ".join(y)
 
-if result== 1:
-    st.header("spam")
-else:
-    st.header("Not Spam")
+tfidf = pickle.load(open('vectorize.pkl','rb'))
+model = pickle.load(open('model.pkl','rb'))
 
+st.title("Email/SMS Spam Classifier")
+
+input_sms = st.text_area("Enter the message")
+
+if st.button('Predict'):
+
+    # 1. preprocess
+    transformed_sms = transform_text(input_sms)
+    # 2. vectorize
+    vector_input = tfidf.fit([transformed_sms])
+    vector_input = tfidf.transform([transformed_sms])
+    # 3. predict
+    result = model.predict(vector_input)[0]
+    # 4. Display
+    if result == 1:
+        st.header("Spam")
+    else:
+        st.header("Not Spam")
