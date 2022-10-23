@@ -8,7 +8,8 @@ from nltk.stem.porter import PorterStemmer
 ps = PorterStemmer()
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-tfidf= TfidfVectorizer( norm='l2', use_idf=True, smooth_idf=True, sublinear_tf=False)
+from sklearn.feature_extraction.text import CountVectorizer
+tfidf= TfidfVectorizer(norm ='l1',use_idf=True, smooth_idf=True, sublinear_tf=False)
 
 from sklearn.naive_bayes import MultinomialNB
 mnb=MultinomialNB(alpha = 1.0, fit_prior = True, class_prior =None)
