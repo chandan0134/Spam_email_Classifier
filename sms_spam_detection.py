@@ -9,13 +9,14 @@ Original file is located at
 
 import numpy as np
 import pandas as pd
+import nltk
 
 nltk.download('stopwords')
 
-from google.colab import drive
-drive.mount('/content/drive')
+#from google.colab import drive
+#drive.mount('/content/drive')
 
-df = pd.read_csv('/content/drive/MyDrive/NLP/spam.csv',encoding="ISO-8859-1")
+df = pd.read_csv('spam.csv',encoding="ISO-8859-1")
 
 df.sample(5)
 

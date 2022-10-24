@@ -7,13 +7,6 @@ from nltk.stem.porter import PorterStemmer
 
 ps = PorterStemmer()
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
-tfidf= TfidfVectorizer(norm ='l1',use_idf=True, smooth_idf=True, sublinear_tf=False)
-
-from sklearn.naive_bayes import MultinomialNB
-mnb=MultinomialNB(alpha = 1.0, fit_prior = True, class_prior =None)
-
 
 def transform_text(text):
     text = text.lower()
@@ -39,7 +32,10 @@ def transform_text(text):
 
     return " ".join(y)
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfidf = TfidfVectorizer()
 tfidf = pickle.load(open('vectorize.pkl','rb'))
+
 model = pickle.load(open('model.pkl','rb'))
 
 st.title("Email/SMS Spam Classifier")
@@ -51,9 +47,13 @@ if st.button('Predict'):
     # 1. preprocess
     transformed_sms = transform_text(input_sms)
     # 2. vectorize
-    vector_input = tfidf.fit([transformed_sms])
-    vector_input = tfidf.transform([transformed_sms])
+ 
+    
+    vector_input = tfidf.fit_transform([transformed_sms])
     # 3. predict
+    from sklearn.naive_bayes import GaussianNB,MultinomialNB
+    from sklearn.model_selection import train_test_split
+    result=model.fit(X_train,y_train)
     result = model.predict(vector_input)[0]
     # 4. Display
     if result == 1:
