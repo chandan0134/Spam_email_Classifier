@@ -37,3 +37,6 @@ This is a Python-based spam email classifier that uses machine learning techniqu
 
 ## Dataset
 
+  ```bash
+  https://www.kaggle.com/datasets/tmehul/spamcsv
+
