@@ -1,5 +1,9 @@
 # Spam_email_Classifier
 This is a Python-based spam email classifier that uses machine learning techniques to classify emails as spam or not spam (ham). It's a simple yet effective tool to help you automatically identify and filter out spam emails from your inbox.
+
+## Screenshots
+
+![App Screenshot](https://github.com/chandan0134/plotline_frontend/blob/master/plotline.png?raw=true)
 ## Table of Contents
 
 - [Features](#features)
@@ -23,3 +27,14 @@ This is a Python-based spam email classifier that uses machine learning techniqu
 
    ```bash
    git clone https://github.com/chandan0134/Spam_email_Classifier.git
+2. Run the app
+    ```bash
+   streamlit run app.py
+
+## Usage 
+1. Train the classifier using your dataset. See Training for instructions.
+2. Use the classifier to classify new emails by running the provided script.
+3. Manage email filters based on the classification results.
+
+## Dataset
+
