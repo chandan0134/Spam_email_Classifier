@@ -3,7 +3,8 @@ This is a Python-based spam email classifier that uses machine learning techniqu
 
 ## Screenshots
 
-![App Screenshot](https://github.com/chandan0134/plotline_frontend/blob/master/plotline.png?raw=true)
+![App Screenshot](https://raw.githubusercontent.com/chandan0134/Spam_email_Classifier/master/Screenshot%20(825).png?raw=true)
+![App Screenshot](https://raw.githubusercontent.com/chandan0134/Spam_email_Classifier/master/Screenshot%20(825).png?raw=true)
 ## Table of Contents
 
 - [Features](#features)
