@@ -10,11 +10,9 @@ This is a Python-based spam email classifier that uses machine learning techniqu
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Dataset](#dataset)
-- [Training](#training)
-- [Evaluation](#evaluation)
-- [Contributing](#contributing)
-- [License](#license)
+
+
+
 
 ## Features
 
